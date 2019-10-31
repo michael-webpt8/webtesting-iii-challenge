@@ -8,6 +8,16 @@ test('Controls renders correctly', () => {
   expect(render(<Controls />)).toMatchSnapshot();
 });
 
+test('close can turn to open = unlocked to locked', () => {
+  const mockGateFeature = jest.fn();
+  mockGateFeature(/close gate/i);
+  mockGateFeature(/open gate/i);
+  expect(mockGateFeature).toHaveBeenCalled();
+  expect(mockGateFeature).toHaveBeenCalledTimes(2);
+  expect(mockGateFeature).toHaveBeenLastCalledWith(/open gate/i);
+});
+
+// kinda worthless test i think... :/
 test('Lock gate turns to unlock gate when fired', async () => {
   const mockLockFeature = jest.fn();
   mockLockFeature(/lock gate/i);
@@ -17,14 +27,3 @@ test('Lock gate turns to unlock gate when fired', async () => {
   expect(mockLockFeature).toHaveBeenCalledTimes(3);
   expect(mockLockFeature).toHaveBeenLastCalledWith(/lock gate/i);
 });
-
-// test('Lock gate unlock back to Locked gate', () => {
-// 	const { getByText, queryByText } = render(<Controls />);
-// 	const gate = getByText(/lock gate/i);
-
-// 	act(() => {
-// 		fireEvent.click(gate);
-
-// 	});
-// 	queryByText(/lock gate/i);
-// });
