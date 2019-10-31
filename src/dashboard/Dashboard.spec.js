@@ -1,19 +1,37 @@
 // Test away
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, wait } from '@testing-library/react';
 import Dashboard from './Dashboard';
+import { queryByTestId } from 'react-testing-library';
+import { notDeepEqual } from 'assert';
 
 test('Renders display correctly', () => {
   expect(render(<Dashboard />)).toMatchSnapshot();
 });
 
 // test('set Gate to Closed on close Gate Button Click', () => {
-//   const setToggleLockedMock = jest.fn();
-//   const {  } = render(
-//     <Dashboard toggleLocked={setToggleLockedMock} />
+//   const setToggleClosedMock = jest.fn();
+//   const { getByTestId } = render(
+//     <Dashboard toggleLocked={setToggleClosedMock} />
 //   );
-//   const lockingButton = getByTestId('locking-feature');
+//   const lockingButton = getByTestId('gate-feature');
 
 //   fireEvent.click(lockingButton);
-//   expect(setDisplayClosedToOpenMock).toHaveBeenCalled();
+//   expect(setToggleClosedMock).toHaveBeenCalled();
 // });
+
+test('renders closed on click of close gate', async () => {
+  // open message first
+  // click button fire async operation
+  // click button to fire async operation async/await
+  // assert closed message is now on the DOM
+  const { getByText, getByTestId } = render(<Dashboard />);
+
+  const closedMessage = getByTestId('gate-feature');
+  expect(closedMessage).not.toBeNull();
+
+  const button = getByTestId('gate-feature');
+  await fireEvent.click(button);
+
+  expect(getByText(/closed/i));
+});
