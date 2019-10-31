@@ -1,24 +1,14 @@
 // Test away
 import React from 'react';
-import { render, fireEvent, wait } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import Dashboard from './Dashboard';
-import { queryByTestId } from 'react-testing-library';
-import { notDeepEqual } from 'assert';
+import { cleanup } from 'react-testing-library';
+
+afterEach(cleanup);
 
 test('Renders display correctly', () => {
-  expect(render(<Dashboard />)).toMatchSnapshot();
+  expect(render(<Dashboard />).asFragment()).toMatchSnapshot();
 });
-
-// test('set Gate to Closed on close Gate Button Click', () => {
-//   const setToggleClosedMock = jest.fn();
-//   const { getByTestId } = render(
-//     <Dashboard toggleLocked={setToggleClosedMock} />
-//   );
-//   const lockingButton = getByTestId('gate-feature');
-
-//   fireEvent.click(lockingButton);
-//   expect(setToggleClosedMock).toHaveBeenCalled();
-// });
 
 test('renders closed on click of close gate', async () => {
   // open message first
