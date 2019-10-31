@@ -35,3 +35,17 @@ test('renders closed on click of close gate', async () => {
 
   expect(getByText(/closed/i));
 });
+
+test('renders Locked when locking gate after closing gate', async () => {
+  const { getByText, getByTestId } = render(<Dashboard />);
+  const toggleGate = getByTestId('gate-feature');
+  const lockGate = getByTestId('locking-feature');
+
+  const toggleGateButton = toggleGate;
+  const lockGateButton = lockGate;
+
+  fireEvent.click(toggleGateButton);
+  expect(getByText(/closed/i));
+  await fireEvent.click(lockGateButton);
+  expect(getByText(/locked/i));
+});
